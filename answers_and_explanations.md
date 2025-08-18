@@ -258,3 +258,69 @@
 - 엔티티 데이터의 자동 캐싱: 이는 `createEntityAdapter`의 기능이 아니라 RTK Query의 기능입니다.
 - 엔티티 데이터의 자동 직렬화/역직렬화: 이 역시 `createEntityAdapter`의 기능이 아닙니다. Redux Toolkit은 `serializableCheck` 미들웨어를 통해 직렬화 가능성을 검사할 수는 있지만, 자동 직렬화/역직렬화 기능은 제공하지 않습니다.
 
+### 03-3 Redux Toolkit 실전 활용 사례
+
+#### 문제 1
+**문제**: Redux Toolkit을 사용한 사용자 인증 관리에서 로그인 상태를 유지하기 위한 적절한 방법은?
+
+**정답**: 로컬 스토리지에 토큰 저장 후 Redux 상태와 동기화
+
+**해설**: 사용자 인증 관리에서 로그인 상태를 유지하기 위한 가장 적절한 방법은 로컬 스토리지에 토큰을 저장하고 이를 Redux 상태와 동기화하는 것입니다. 이 방식은 페이지 새로고침이나 브라우저 종료 후 재방문 시에도 사용자의 로그인 상태를 유지할 수 있게 해줍니다. 초기 상태에서 로컬 스토리지의 토큰을 확인하여 인증 상태를 설정하고, 로그인/로그아웃 시 로컬 스토리지와 Redux 상태를 함께 업데이트하는 패턴이 일반적입니다. 브라우저 쿠키는 보안에 취약할 수 있고, 세션 스토리지는 브라우저 종료 시 데이터가 삭제되며, Redux 상태만 사용하면 페이지 새로고침 시 상태가 초기화되는 단점이 있습니다.
+
+#### 문제 2
+**문제**: RTK Query의 주요 이점이 아닌 것은?
+
+**정답**: 상태 변경 내역 자동 기록
+
+**해설**: RTK Query의 주요 이점에는 자동 캐싱 및 중복 요청 방지, 로딩/성공/실패 상태 자동 관리, 태그 기반 캐시 무효화 등이 있지만, 상태 변경 내역 자동 기록은 RTK Query의 기능이 아닙니다. 상태 변경 내역 기록은 Redux DevTools의 기능으로, Redux 상태의 모든 변경을 추적하고 시간 여행 디버깅을 가능하게 합니다. RTK Query는 주로 서버 데이터 가져오기, 캐싱, 업데이트에 초점을 맞추고 있으며, 데이터 페칭 로직을 선언적으로 정의하고 React 컴포넌트에서 쉽게 사용할 수 있는 훅을 자동으로 생성해주는 기능을 제공합니다.
+
+#### 문제 3
+**문제**: Redux Toolkit의 createEntityAdapter를 사용하는 주요 이유로 올바른 것은? (복수 응답)
+
+**정답**: 정규화된 데이터 구조 자동 관리, 엔티티 조작을 위한 표준 CRUD 작업 제공, 엔티티 선택을 위한 메모이제이션된 선택자 함수 제공
+
+**해설**: 
+- 정규화된 데이터 구조 자동 관리: createEntityAdapter는 `{ ids: [], entities: {} }` 형태의 정규화된 데이터 구조를 자동으로 생성하고 관리하여 데이터 접근 효율성을 높입니다.
+- 엔티티 조작을 위한 표준 CRUD 작업 제공: addOne, addMany, updateOne, removeOne 등의 표준화된 CRUD 작업을 제공하여 엔티티 데이터를 일관된 방식으로 쉽게 조작할 수 있게 합니다.
+- 엔티티 선택을 위한 메모이제이션된 선택자 함수 제공: selectAll, selectById, selectIds 등의 메모이제이션된 선택자 함수를 제공하여 성능 최적화된 방식으로 엔티티 데이터를 조회할 수 있게 합니다.
+- 비동기 작업 자동 처리: 이는 createEntityAdapter의 기능이 아니라 createAsyncThunk나 RTK Query의 기능입니다.
+- 컴포넌트와 스토어 자동 연결: 이 역시 createEntityAdapter의 기능이 아니라 React-Redux의 connect 함수나 useSelector, useDispatch 훅의 기능입니다.
+
+#### 문제 1
+**문제**: Redux Toolkit의 `configureStore` 함수가 자동으로 설정하는 것은 무엇인가요?
+
+**정답**: Redux DevTools Extension 연결
+
+**해설**: Redux Toolkit의 `configureStore` 함수는 Redux DevTools Extension을 자동으로 연결하여 개발자가 별도의 설정 없이도 강력한 디버깅 도구를 사용할 수 있게 해줍니다. 또한 기본 미들웨어(redux-thunk 포함)를 자동으로 설정하고, 개발 환경에서의 오류 검사 기능도 제공합니다. 이를 통해 기존 Redux의 복잡한 스토어 설정 과정을 크게 간소화할 수 있습니다. 컴포넌트와 스토어 연결은 React-Redux 라이브러리의 역할이며, 리듀서 함수 생성은 `createSlice`의 역할입니다. 상태의 불변성 처리는 Immer 라이브러리를 통해 `createSlice` 내부에서 이루어집니다.
+
+#### 문제 2
+**문제**: Redux Toolkit의 `createSlice`가 제공하는 기능이 아닌 것은 무엇인가요?
+
+**정답**: API 요청 자동 처리
+
+**해설**: Redux Toolkit의 `createSlice`는 액션 타입 자동 생성, 액션 생성자 자동 생성, 리듀서 함수 자동 생성 기능을 제공하지만, API 요청 자동 처리 기능은 제공하지 않습니다. API 요청과 같은 비동기 작업은 `createAsyncThunk`나 RTK Query를 통해 처리됩니다. `createSlice`는 주로 동기적인 상태 업데이트 로직을 간소화하는 데 중점을 두고 있으며, 내부적으로 Immer 라이브러리를 사용하여 불변성을 자동으로 처리합니다. 이를 통해 개발자는 보일러플레이트 코드를 크게 줄이고 더 직관적인 방식으로 상태 업데이트 로직을 작성할 수 있습니다.
+
+#### 문제 3
+**문제**: Redux Toolkit에서 비동기 작업을 처리하는 방법으로 올바른 것은 무엇인가요? (복수 응답)
+
+**정답**: `createAsyncThunk` 사용, `RTK Query` 사용, `extraReducers`에서 비동기 액션 처리
+
+**해설**: 
+- `createAsyncThunk` 사용: 이 API는 비동기 작업의 생명주기(pending, fulfilled, rejected)를 자동으로 관리하고, 해당 상태에 따른 액션을 디스패치합니다.
+- `RTK Query` 사용: 데이터 가져오기 및 캐싱을 위한 강력한 도구로, API 통신을 위한 보일러플레이트 코드를 크게 줄이고 자동 캐싱, 로딩 상태 관리 등의 기능을 제공합니다.
+- `extraReducers`에서 비동기 액션 처리: `createSlice`의 `extraReducers` 필드를 사용하여 `createAsyncThunk`로 생성된 비동기 액션의 상태(pending, fulfilled, rejected)에 따른 리듀서 로직을 정의할 수 있습니다.
+- `createSlice`의 `asyncReducers` 속성 사용: 이는 존재하지 않는 속성입니다. Redux Toolkit에는 `asyncReducers`라는 속성이 없습니다.
+- `configureStore`의 `asyncMiddleware` 설정 사용: 이 역시 존재하지 않는 설정입니다. `configureStore`에는 `middleware` 설정이 있지만, `asyncMiddleware`라는 특정 설정은 없습니다.
+
+#### 문제 4
+**문제**: Redux Toolkit의 `createEntityAdapter`가 제공하는 기능은 무엇인가요? (복수 응답)
+
+**정답**: 정규화된 데이터 구조 자동 관리, 엔티티 조작을 위한 표준 CRUD 작업 제공, 엔티티 선택을 위한 메모이제이션된 선택자 함수 제공
+
+**해설**: 
+- 정규화된 데이터 구조 자동 관리: `createEntityAdapter`는 `{ ids: [], entities: {} }` 형태의 정규화된 데이터 구조를 자동으로 생성하고 관리합니다.
+- 엔티티 조작을 위한 표준 CRUD 작업 제공: `addOne`, `addMany`, `updateOne`, `removeOne` 등의 표준화된 CRUD 작업을 제공하여 엔티티 데이터를 쉽게 조작할 수 있게 합니다.
+- 엔티티 선택을 위한 메모이제이션된 선택자 함수 제공: `selectAll`, `selectById`, `selectIds` 등의 메모이제이션된 선택자 함수를 제공하여 엔티티 데이터를 효율적으로 조회할 수 있게 합니다.
+- 엔티티 데이터의 자동 캐싱: 이는 `createEntityAdapter`의 기능이 아니라 RTK Query의 기능입니다.
+- 엔티티 데이터의 자동 직렬화/역직렬화: 이 역시 `createEntityAdapter`의 기능이 아닙니다. Redux Toolkit은 `serializableCheck` 미들웨어를 통해 직렬화 가능성을 검사할 수는 있지만, 자동 직렬화/역직렬화 기능은 제공하지 않습니다.
+
