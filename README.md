@@ -14,13 +14,9 @@
 - 핵심 포인트
 - 확인 문제
 
-#### [01-3 Redux 소개](chapters/01-3_redux_introduction.md)
-- Redux의 특징과 장점
-- 핵심 포인트
-- 확인 문제
-
 ### [Chapter 02 Redux 기초](#chapter-02-redux-기초)
-#### [02-1 Redux 아키텍처](chapters/02-1_redux_architecture.md)
+#### [02-1 Redux 소개와 아키텍처](chapters/02-1_redux_introduction_architecture.md)
+- Redux의 개념과 특징
 - 핵심 원칙과 데이터 흐름
 - 핵심 포인트
 - 확인 문제
