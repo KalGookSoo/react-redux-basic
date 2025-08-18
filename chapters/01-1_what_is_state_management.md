@@ -171,4 +171,4 @@ function Counter() {
     - [ ] 불필요한 렌더링 방지를 통한 성능 최적화
     - [ ] 팀 협업 개발 향상
 
-> [정답 및 해설 보기](../answers_and_explanations.md#01-1)
+> [정답 및 해설 보기](../answers_and_explanations.md#01-1-상태-관리란-무엇인가)
