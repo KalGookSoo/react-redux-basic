@@ -112,10 +112,10 @@ Redux는 단방향 데이터 흐름(Unidirectional Data Flow)을 따릅니다. �
 
 ```mermaid
 graph LR
-    A[View/Component] -->|1. 액션 발행| B[Action]
-    B -->|2. 리듀서로 전달| C[Reducer]
-    C -->|3. 상태 업데이트| D[Store]
-    D -->|4. 새 상태 구독| A
+    A[View/Component] -->|액션 발행| B[Action]
+    B -->|리듀서로 전달| C[Reducer]
+    C -->|상태 업데이트| D[Store]
+    D -->|새 상태 구독| A
     
     style B fill:#c35b5b,color:white
     style C fill:#3cb371,color:white
