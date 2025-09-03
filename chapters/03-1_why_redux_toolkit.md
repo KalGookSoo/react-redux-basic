@@ -401,19 +401,22 @@ graph TB
     E1 --> F1[스토어 설정]
     end
     
-    subgraph "Redux Toolkit"
-    A2[createSlice 정의] --> B2[액션/리듀서 자동 생성]
-    B2 --> C2[불변성 자동 관리]
-    C2 --> D2[createAsyncThunk]
-    D2 --> E2[configureStore]
-    end
-    
     style A1 fill:#c35b5b,color:white
     style B1 fill:#c35b5b,color:white
     style C1 fill:#c35b5b,color:white
     style D1 fill:#c35b5b,color:white
     style E1 fill:#c35b5b,color:white
     style F1 fill:#c35b5b,color:white
+```
+
+```mermaid
+graph TB
+    subgraph "Redux Toolkit"
+    A2[createSlice 정의] --> B2[액션/리듀서 자동 생성]
+    B2 --> C2[불변성 자동 관리]
+    C2 --> D2[createAsyncThunk]
+    D2 --> E2[configureStore]
+    end
     
     style A2 fill:#3cb371,color:white
     style B2 fill:#3cb371,color:white
